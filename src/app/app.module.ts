@@ -2,13 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import {Injector, NgModule} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-// import { AppComponent } from './app.component';
 import { NgCardElementComponent } from './ng-card-element/ng-card-element.component';
 import {createCustomElement} from '@angular/elements';
 
 @NgModule({
   declarations: [
-    // AppComponent,
     NgCardElementComponent
   ],
   imports: [
@@ -16,7 +14,6 @@ import {createCustomElement} from '@angular/elements';
     AppRoutingModule
   ],
   providers: [],
-  // bootstrap: [AppComponent],
   entryComponents: [NgCardElementComponent],
 })
 export class AppModule {
@@ -27,6 +24,13 @@ export class AppModule {
       injector: this.injector
     });
 
-    customElements.define('facebook-card', el);
+    /**
+     * This `if` should not be needed. Maybe trying w/ Ivy
+     * could help.
+     * https://github.com/angular/angular/issues/23732
+     */
+    if (!customElements.get('facebook-card')) {
+      customElements.define('facebook-card', el);
+    }
   }
 }
